@@ -194,7 +194,7 @@ class FFTF_Alerts {
 	 */
 	function donate_link( $links, $file ) {
 		if ($file == plugin_basename(__FILE__)) {
-    		$donate_link = '<a href="https://store.halfelf.org/donate/">' . __( 'Donate', 'fftf-alerts' ) . '</a>';
+    		$donate_link = '<a href="https://paypal.me/ipstenu/5">' . __( 'Donate', 'fftf-alerts' ) . '</a>';
     		$links[] = $donate_link;
         }
         return $links;
