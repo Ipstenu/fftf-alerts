@@ -211,7 +211,7 @@ class FFTF_Alerts {
 
 			<h1><?php _e( 'Fight for the Future Alerts', 'fftf-alerts' ); ?></h1>
 			
-			<p><?php echo sprintf( __( '<a href="%1$s">Fight for the Future</a> is dedicated to protecting and expanding the Internet’s transformative power in our lives by creating civic campaigns that are engaging for millions of people.', 'fftf-alerts' ), 'https://fightforthefuture.org' ); ?></p>
+			<p><?php echo sprintf( __( '<a href="%1$s" target="_blank">Fight for the Future</a> is dedicated to protecting and expanding the Internet’s transformative power in our lives by creating civic campaigns that are engaging for millions of people.', 'fftf-alerts' ), 'https://fightforthefuture.org' ); ?></p>
 
 			<p><?php _e( 'By default, modals will only display on their designated days. This is by design of Fight for the Future, and not a function of this plugin. If a fight is ongoing, it will always run.', 'fftf-alerts' ); ?></p>
 			
