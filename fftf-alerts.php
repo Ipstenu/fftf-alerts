@@ -3,7 +3,7 @@
 Plugin Name: FFTF Alerts
 Plugin URI: https://halfelf.org/plugins/fftf-alerts
 Description: Show Fight for the Future alerts on your website
-Version: 1.0.0
+Version: 1.0.1
 Author: Mika Epstein (Ipstenu)
 Author URI: https://halfelf.org
 License: GPLv3
@@ -24,8 +24,8 @@ Text Domain: fftf-alerts
 	GNU General Public License for more details.
 
 	A copy of the Licence has been inlcuded in the plugin, but can also
-	be downloaded at https://www.gnu.org/licenses/gpl-3.0.html	
-	
+	be downloaded at https://www.gnu.org/licenses/gpl-3.0.html
+
 */
 
 /*
@@ -59,24 +59,25 @@ class FFTF_Alerts {
 			'battleforthenet'  => false,
 		);
 		self::$settings   = get_option( 'fftf_alerts_options', $default_settings );
-		self::$fights     = array ( 
-			'blackoutcongress' => array( 
+		self::$fights     = array (
+			'blackoutcongress' => array(
 				'name'  => __( 'Blackout Congress', 'fftf-alerts' ),
 				'date'  => 'Ongoing',
 				'url'   => 'https://www.blackoutcongress.org',
 				'js'    => 'https://www.blackoutcongress.org/detect.js',
 				'debug' => 'fftf_redirectjs = { alwaysRedirect: true }',
 			),
-			'battleforthenet'  => array( 
+			'battleforthenet'  => array(
 				'name'  => __( 'Battle for the Net', 'fftf-alerts' ),
 				'date'  => '2017-07-12',
 				'url'   => 'https://www.battleforthenet.com/july12/',
 				'js'    => 'https://widget.battleforthenet.com/widget.js',
-				'debug' => '',
+				'extra' => 'var _bftn_options = { iframe_base_path: "https://widget.battleforthenet.com/iframe" }'
+
 			),
 		);
 	}
-	
+
 	/**
 	 * Admin Init
 	 * @since 1.0.0
@@ -100,10 +101,13 @@ class FFTF_Alerts {
 		foreach ( self::$settings as $setting => $value ) {
 			if ( is_bool( $value ) && $value == true ) {
 				wp_enqueue_script( $setting, self::$fights[ $setting ][ 'js' ], array( 'jquery' ), self::$version );
-				
-				// Debug mode, which doesn't ALWAYS work but that's their fault...
-				if ( WP_DEBUG == true && self::$fights[ $setting ][ 'debug' ] !== '' ) {
-					wp_add_inline_script( $setting, self::$fights[ $setting ][ 'debug' ] );
+				if ( array_key_exists( 'extra', self::$fights[ $setting ] ) ) {
+					wp_add_inline_script( $setting, self::$fights[ $setting ][ 'extra' ], 'before' );
+				}
+
+				// Debug mode
+				if ( WP_DEBUG == true && array_key_exists( 'debug', self::$fights[ $setting ] ) ) {
+					wp_add_inline_script( $setting, self::$fights[ $setting ][ 'debug' ], 'before' );
 				}
 			}
 		}
@@ -129,7 +133,7 @@ class FFTF_Alerts {
 
 		// The main section
 		add_settings_section( 'fftfalert-fights', __( 'Pick Your Battles', 'fftf-alerts' ), array( $this, 'fftf_settings_callback' ), 'fftf-alerts-settings' );
-		
+
 		// The Field
 		add_settings_field( 'fftfalert_settings_fields', __( 'Available Battles to Fight', 'fftf-alerts' ), array( $this, 'fftf_settings_fields_callback' ), 'fftf-alerts-settings', 'fftfalert-fights' );
 	}
@@ -153,11 +157,11 @@ class FFTF_Alerts {
 	function fftf_settings_fields_callback() {
 
 		foreach ( self::$settings as $setting => $value ) {
-			if ( is_bool( $value ) ) {	
+			if ( is_bool( $value ) ) {
 				$fight   = self::$fights[ $setting ];
-				
-				$date = ( strtotime( $fight['date'] ) == false )? $fight['date'] : date_i18n( get_option( 'date_format' ), strtotime( $fight['date'] ) ); 
-				
+
+				$date = ( strtotime( $fight['date'] ) == false )? $fight['date'] : date_i18n( get_option( 'date_format' ), strtotime( $fight['date'] ) );
+
 				?>
 				<p><input type="checkbox" id="fftf_alerts_options[<?php echo $setting; ?>]" name="fftf_alerts_options[<?php echo $setting; ?>]" value="1" <?php echo checked( 1, $value ); ?> >
 				<label for="fftf_alerts_options[<?php echo $setting; ?>]"><a href="<?php echo $fight['url']; ?>" target="_blank"><?php echo $fight['name']; ?></a> - <?php echo $date; ?></label></p>
@@ -176,8 +180,8 @@ class FFTF_Alerts {
 
 		$options = self::$settings;
 
-		foreach ( $options as $setting => $value ) {	
-			
+		foreach ( $options as $setting => $value ) {
+
 			$output[ $setting ] = false;
 			if ( isset( $input[ $setting ] ) && $input[ $setting ] == true ) $output[ $setting ] = true;
 
@@ -187,7 +191,7 @@ class FFTF_Alerts {
 
 		return $output;
 	}
-	
+
 	/**
 	 * donate link on manage plugin page
 	 * @since 1.0.0
@@ -199,7 +203,7 @@ class FFTF_Alerts {
         }
         return $links;
 	}
-	
+
 	/**
 	 * Call settings page
 	 *
@@ -210,13 +214,13 @@ class FFTF_Alerts {
 		<div class="wrap">
 
 			<h1><?php _e( 'Fight for the Future Alerts', 'fftf-alerts' ); ?></h1>
-			
+
 			<p><?php echo sprintf( __( '<a href="%1$s" target="_blank">Fight for the Future</a> is dedicated to protecting and expanding the Internet’s transformative power in our lives by creating civic campaigns that are engaging for millions of people.', 'fftf-alerts' ), 'https://fightforthefuture.org' ); ?></p>
 
 			<p><?php _e( 'By default, modals will only display on their designated days. This is by design of Fight for the Future, and not a function of this plugin. If a fight is ongoing, it will always run.', 'fftf-alerts' ); ?></p>
-			
+
 			<?php settings_errors(); ?>
-			
+
 			<form action="options.php" method="POST" ><?php
 				settings_fields( 'fftf-alerts' );
 				do_settings_sections( 'fftf-alerts-settings' );
