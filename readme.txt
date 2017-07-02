@@ -18,9 +18,11 @@ You can show a modal windows for a specific day of action, or an event (some on 
 
 **I do not support issues with the modals themselves!** If the javascript is loaded on your page, regardless of how wonky it looks, then the plugin works. If the boxes look black or cause weird errors, you'll have to take it up with Fight for the Future directly.
 
+If you just want to use the Cat Signal, I recommend the [Cat Signal plugin](https://wordpress.org/plugins/cat-signal).
+
 === Pick your Battles ===
 
-* [Cat Signal (ongoing)](https://www.internetdefenseleague.org)
+* [Cat Signal (ongoing)](https://www.internetdefenseleague.org) -- This will disable all others
 * [Blackout Congress (ongoing)](https://blackoutcongress.org)
 * [Battle for the Net (2017 July 12)](https://battleforthenet.com)
 
