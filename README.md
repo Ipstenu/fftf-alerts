@@ -8,5 +8,5 @@ This plugin shows alerts from [Fight for the Future](https://fightforthefuture.o
 This is the development site. Issues and pull requests welcome, but please install this from WordPress.org
 
 * [WordPress.org Install](https://wordpress.org/plugins/fftf-alerts/)
-* [Readme][readme.txt]
-* [Changelog][changelog.txt]
+* [Readme](readme.txt)
+* [Changelog](changelog.txt)
