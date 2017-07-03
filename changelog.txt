@@ -1,5 +1,9 @@
 == Changelog ==
 
+= 1.1.1 =
+* July 2017
+* I hate PHP comparison operators...
+
 = 1.1.0 =
 * July 2017
 * Add feature to ensure we don't run the code (and slow sites down) forever.
