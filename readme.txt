@@ -1,6 +1,6 @@
 === Fight for the Future Alerts ===
 Contributors: Ipstenu
-Donate link: https://store.halfelf.org/donate/
+Donate link: https://ko-fi.com/A236CENl/
 Tags: eff, fight for the future, cat signal, activism
 Requires at least: 4.8
 Tested up to: 4.9
