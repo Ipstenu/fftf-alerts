@@ -61,25 +61,23 @@ class FFTF_Alerts {
 			'blackoutcongress' => false,
 			'battleforthenet'  => false,
 			'catsignal'        => false,
+			'catsigna_remote'  => false,
 		);
 		self::$settings   = get_option( 'fftf_alerts_options', self::$default_settings );
 		self::$fights     = array (
 			'blackoutcongress'     => array(
 				'name'  => __( 'Blackout Congress', 'fftf-alerts' ),
-				'date'  => 'ongoing',
 				'url'   => 'https://www.blackoutcongress.org',
 				'js'    => 'https://www.blackoutcongress.org/detect.js',
 				'debug' => 'fftf_redirectjs = { alwaysRedirect: true }',
 			),
 			'catsignal' => array(
 				'name'  => __( 'Cat Signal (Internet Defense League)', 'fftf-alerts' ),
-				'date'  => 'ongoing',
 				'url'   => 'https://www.internetdefenseleague.org',
 				'js'    => plugins_url( 'js/catsignal.js', __FILE__ ),
 			),
 			'battleforthenet'       => array(
 				'name'  => __( 'Battle for the Net', 'fftf-alerts' ),
-				'date'  => '2017-07-12',
 				'url'   => 'https://www.battleforthenet.com/july12/',
 				'js'    => 'https://widget.battleforthenet.com/widget.js',
 				'extra' => 'var _bftn_options = { iframe_base_path: "https://widget.battleforthenet.com/iframe" }',
@@ -131,8 +129,7 @@ class FFTF_Alerts {
 	/**
 	 * Enqueue Scripts
 	 *
-	 * If the setting is true and the date is ongoing, before 7 days AFTER
-	 * the event passes, OR it's in debug mode, enqueue the javascript.
+	 * If the setting is true OR it's in debug mode, enqueue the javascript.
 	 *
 	 * @since 1.0.0
 	 */
@@ -142,18 +139,16 @@ class FFTF_Alerts {
 			if ( is_bool( $value ) && $value == true ) {
 
 				$fight = self::$fights[ $setting ];
-				$date  = ( strtotime( $fight['date'] ) == false )? $fight['date'] : strtotime( $fight['date'] );
 
-				if ( $date == 'ongoing' || time() < ( $date + self::$expiration ) || WP_DEBUG == true ) {
-					wp_enqueue_script( $setting, $fight[ 'js' ], array( 'jquery' ), self::$version );
-					if ( array_key_exists( 'extra', $fight ) ) {
-						wp_add_inline_script( $setting, $fight[ 'extra' ], 'before' );
-					}
+				// Enqueue script
+				wp_enqueue_script( $setting, $fight[ 'js' ], array( 'jquery' ), self::$version );
+				if ( array_key_exists( 'extra', $fight ) ) {
+					wp_add_inline_script( $setting, $fight[ 'extra' ], 'before' );
+				}
 
-					// Debug mode
-					if ( WP_DEBUG == true && array_key_exists( 'debug', self::$fights[ $setting ] ) ) {
-						wp_add_inline_script( $setting, self::$fights[ $setting ][ 'debug' ], 'before' );
-					}
+				// Debug mode
+				if ( WP_DEBUG == true && array_key_exists( 'debug', self::$fights[ $setting ] ) ) {
+					wp_add_inline_script( $setting, self::$fights[ $setting ][ 'debug' ], 'before' );
 				}
 			}
 		}
@@ -206,16 +201,11 @@ class FFTF_Alerts {
 		foreach ( self::$settings as $setting => $value ) {
 			if ( is_bool( $value ) ) {
 				$fight    = self::$fights[ $setting ];
-				$date     = ( strtotime( $fight['date'] ) == false )? lcfirst( $fight['date'] ) : date_i18n( get_option( 'date_format' ), strtotime( $fight['date'] ) );
-
-				$disabled = (
-					( strtotime( $date ) == true && time() > ( strtotime( $date ) + self::$expiration ) ) ||
-					( array_key_exists( 'catsignal', self::$settings ) && $setting !== 'catsignal' && self::$settings['catsignal'] == true )
-				)? true : false;
+				$disabled = ( array_key_exists( 'catsignal', self::$settings ) && $setting !== 'catsignal' && self::$settings['catsignal'] == true )? true : false;
 
 				?>
 				<p><input type="checkbox" id="fftf_alerts_options[<?php echo $setting; ?>]" name="fftf_alerts_options[<?php echo $setting; ?>]" value="1" <?php echo checked( 1, $value ); ?> <?php disabled( $disabled, true ); ?> >
-				<label for="fftf_alerts_options[<?php echo $setting; ?>]"><a href="<?php echo $fight['url']; ?>" target="_blank"><?php echo $fight['name']; ?></a> - <?php echo $date; ?></label></p>
+				<label for="fftf_alerts_options[<?php echo $setting; ?>]"><a href="<?php echo $fight['url']; ?>" target="_blank"><?php echo $fight['name']; ?></a></label></p>
 				<?php
 			}
 		}
@@ -241,11 +231,6 @@ class FFTF_Alerts {
 			// If the user set it true, it's true
 			if ( isset( $input[ $setting ] ) && $input[ $setting ] == true ) {
 				$output[ $setting ] = true;
-			}
-
-			// If it's past the sell by date, it's false
-			if ( ( strtotime( $fight[ 'date' ] ) == true && time() > ( strtotime( $fight[ 'date' ] ) + self::$expiration ) ) ) {
-				$output[ $setting ] = false;
 			}
 
 			// If the Cat Signal is selected, we ONLY allow that to be checked

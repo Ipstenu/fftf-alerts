@@ -4,7 +4,7 @@ Donate link: https://ko-fi.com/A236CENl/
 Tags: eff, fight for the future, cat signal, activism
 Requires at least: 4.8
 Tested up to: 4.9
-Stable tag: 1.1.0
+Stable tag: 1.2.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -22,9 +22,9 @@ If you just want to use the Cat Signal, I recommend the [Cat Signal plugin](http
 
 === Pick your Battles ===
 
-* [Cat Signal (ongoing)](https://www.internetdefenseleague.org) -- This will disable all others
-* [Blackout Congress (ongoing)](https://blackoutcongress.org)
-* [Battle for the Net (2017 July 12)](https://battleforthenet.com)
+* [Cat Signal](https://www.internetdefenseleague.org) -- This will disable all others
+* [Blackout Congress](https://blackoutcongress.org)
+* [Battle for the Net](https://battleforthenet.com)
 
 == Installation ==
 
@@ -46,6 +46,10 @@ The Cat Signal, by [the Internet Defense League](https://www.internetdefenseleag
 = If I pick Cat Signal, why can't I pick anything else? =
 
 Because that would cause you to load scripts multiple times. If you pick Cat Signal, it de-selects everything else and only lets you use that.
+
+= I picked the Cat Signal but it's not showing my event. =
+
+Sometimes their servers get overloaded. When that happens, pick the specific event you're targeting _instead_ of the Cat Signal to force it.
 
 = Can I test it? =
 
@@ -72,12 +76,6 @@ Sorry, but I have to spend my time fighting with my congresscritter. He's really
 
 == Changelog ==
 
-= 1.1.1 =
-* July 2017
-* I hate PHP comparison operators...
-
-= 1.1.0 =
-* July 2017
-* Add feature to ensure we don't run the code (and slow sites down) forever.
-* Add upgrade routine
-* Add Cat Signal
+=1.2.0=
+* November 2017
+* Removed date/time check because the Cat Signal redirect sometimes breaks. Props @macmanx

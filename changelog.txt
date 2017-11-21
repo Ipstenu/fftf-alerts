@@ -1,5 +1,9 @@
 == Changelog ==
 
+=1.2.0=
+* November 2017
+* Removed date/time check because the Cat Signal redirect sometimes breaks. Props @macmanx
+
 = 1.1.1 =
 * July 2017
 * I hate PHP comparison operators...
