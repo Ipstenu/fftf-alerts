@@ -3,7 +3,7 @@
 Plugin Name: FFTF Alerts
 Plugin URI: https://halfelf.org/plugins/fftf-alerts
 Description: Show Fight for the Future alerts on your website
-Version: 1.1.1
+Version: 1.2.0
 Author: Mika Epstein (Ipstenu)
 Author URI: https://halfelf.org
 License: GPLv3
