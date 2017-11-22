@@ -4,7 +4,7 @@ Donate link: https://ko-fi.com/A236CENl/
 Tags: eff, fight for the future, cat signal, activism
 Requires at least: 4.8
 Tested up to: 4.9
-Stable tag: 1.2.0
+Stable tag: 1.2.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -75,6 +75,11 @@ I can't help people debug why the javascript isn't working properly. If you view
 Sorry, but I have to spend my time fighting with my congresscritter. He's really annoying.
 
 == Changelog ==
+
+=1.2.1=
+* November 2017
+* Spaces and tabs
+* Removing unused code
 
 =1.2.0=
 * November 2017

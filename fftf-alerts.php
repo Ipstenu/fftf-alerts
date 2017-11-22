@@ -3,7 +3,7 @@
 Plugin Name: FFTF Alerts
 Plugin URI: https://halfelf.org/plugins/fftf-alerts
 Description: Show Fight for the Future alerts on your website
-Version: 1.2.0
+Version: 1.2.1
 Author: Mika Epstein (Ipstenu)
 Author URI: https://halfelf.org
 License: GPLv3
@@ -61,7 +61,6 @@ class FFTF_Alerts {
 			'blackoutcongress' => false,
 			'battleforthenet'  => false,
 			'catsignal'        => false,
-			'catsigna_remote'  => false,
 		);
 		self::$settings   = get_option( 'fftf_alerts_options', self::$default_settings );
 		self::$fights     = array (
@@ -169,8 +168,8 @@ class FFTF_Alerts {
 	 *
 	 * @since 1.0.0
 	 */
-    function register_settings() {
-	    register_setting( 'fftf-alerts', 'fftf_alerts_options', array( $this, 'fftfalert_sanitize' ) );
+	function register_settings() {
+		register_setting( 'fftf-alerts', 'fftf_alerts_options', array( $this, 'fftfalert_sanitize' ) );
 
 		// The main section
 		add_settings_section( 'fftfalert-fights', __( 'Pick Your Battles', 'fftf-alerts' ), array( $this, 'fftf_settings_callback' ), 'fftf-alerts-settings' );
@@ -185,10 +184,10 @@ class FFTF_Alerts {
 	 * @since 1.0.0
 	 */
 	function fftf_settings_callback() {
-	    ?>
-	    <p><?php _e( 'To activate an alert for a fight, click the checkbox and save your settings.', 'fftf-alerts' ); ?></p>
+		?>
+		<p><?php _e( 'To activate an alert for a fight, click the checkbox and save your settings.', 'fftf-alerts' ); ?></p>
 		<p><?php _e( 'In order to prevent you from making your site super slow and load every single script out there, the Cat Signal will deselect everything else for you (and prevent you from being able to select them). It\'s all or piecemeal, basically.', 'fftf-alerts' ); ?></p>
-	    <?php
+		<?php
 	}
 
 	/**
@@ -239,7 +238,7 @@ class FFTF_Alerts {
 			}
 		}
 
-        $output[ 'version' ] = $options[ 'version' ];
+		$output[ 'version' ] = $options[ 'version' ];
 
 		return $output;
 	}
@@ -250,10 +249,10 @@ class FFTF_Alerts {
 	 */
 	function donate_link( $links, $file ) {
 		if ($file == plugin_basename(__FILE__)) {
-    		$donate_link = '<a href="https://paypal.me/ipstenu/5">' . __( 'Donate', 'fftf-alerts' ) . '</a>';
-    		$links[] = $donate_link;
-        }
-        return $links;
+		$donate_link = '<a href="https://paypal.me/ipstenu/5">' . __( 'Donate', 'fftf-alerts' ) . '</a>';
+		$links[] = $donate_link;
+		}
+		return $links;
 	}
 
 	/**
