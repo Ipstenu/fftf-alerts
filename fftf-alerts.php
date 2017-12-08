@@ -3,7 +3,7 @@
 Plugin Name: FFTF Alerts
 Plugin URI: https://halfelf.org/plugins/fftf-alerts
 Description: Show Fight for the Future alerts on your website
-Version: 1.2.1
+Version: 1.3.0
 Author: Mika Epstein (Ipstenu)
 Author URI: https://halfelf.org
 License: GPLv3
@@ -54,13 +54,13 @@ class FFTF_Alerts {
 		add_action( 'wp_enqueue_scripts', array( $this, 'wp_enqueue_script' ) );
 
 		// Create Defaults
-		self::$version    = '1.1.0';
-		self::$expiration = '604800'; // 1 week
+		self::$version    = '1.3.0';
 		self::$default_settings = array (
 			'version'          => self::$version,
 			'blackoutcongress' => false,
 			'battleforthenet'  => false,
 			'catsignal'        => false,
+			'breaktheinternet' => false,
 		);
 		self::$settings   = get_option( 'fftf_alerts_options', self::$default_settings );
 		self::$fights     = array (
@@ -80,6 +80,11 @@ class FFTF_Alerts {
 				'url'   => 'https://www.battleforthenet.com/july12/',
 				'js'    => 'https://widget.battleforthenet.com/widget.js',
 				'extra' => 'var _bftn_options = { iframe_base_path: "https://widget.battleforthenet.com/iframe" }',
+			),
+			'breaktheinternet'      => array(
+				'name'  => __( 'Break the Internet', 'fftf-alerts' ),
+				'url'   => 'https://www.battleforthenet.com/breaktheinternet/',
+				'js'    => 'https://widget.battleforthenet.com/widget.js',
 			),
 		);
 
@@ -158,7 +163,7 @@ class FFTF_Alerts {
 	 *
 	 * @since 1.0.0
 	 */
-    function admin_menu() {
+	function admin_menu() {
 		// Add settings page on Tools
 		add_management_page( __( 'FFTF Alerts', 'fftf-alerts' ), __( 'FFTF Alerts', 'fftf-alerts' ), 'manage_options', 'fftf-alerts-settings', array( $this, 'fftfalert_settings' ) );
 	}
@@ -249,7 +254,7 @@ class FFTF_Alerts {
 	 */
 	function donate_link( $links, $file ) {
 		if ($file == plugin_basename(__FILE__)) {
-		$donate_link = '<a href="https://paypal.me/ipstenu/5">' . __( 'Donate', 'fftf-alerts' ) . '</a>';
+		$donate_link = '<a href="https://ko-fi.com/A236CENl/">' . __( 'Donate', 'fftf-alerts' ) . '</a>';
 		$links[] = $donate_link;
 		}
 		return $links;
@@ -269,7 +274,7 @@ class FFTF_Alerts {
 			<?php settings_errors(); ?>
 
 			<p><?php echo sprintf( __( '<a href="%1$s" target="_blank">Fight for the Future</a> is dedicated to protecting and expanding the Internet’s transformative power in our lives by creating civic campaigns that are engaging for millions of people.', 'fftf-alerts' ), 'https://fightforthefuture.org' ); ?></p>
-			<p><?php _e( 'By default, modals will only display on their designated days. This is by design of both Fight for the Future and this plugin. The javascript for a fight will be loaded for seven days after the event, after which it will vanish in order to keep your site snappy. If a fight is ongoing, the javascript will always be loaded.', 'fftf-alerts' ); ?></p>
+			<p><?php _e( 'By default, modals will only display on their designated days. This is by design of Fight for the Future. After a fight is over, the javascript will stop running but may still load. If a fight is ongoing, the javascript will always be loaded.', 'fftf-alerts' ); ?></p>
 
 			<form action="options.php" method="POST" ><?php
 				settings_fields( 'fftf-alerts' );

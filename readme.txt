@@ -4,7 +4,7 @@ Donate link: https://ko-fi.com/A236CENl/
 Tags: eff, fight for the future, cat signal, activism
 Requires at least: 4.8
 Tested up to: 4.9
-Stable tag: 1.2.1
+Stable tag: 1.3.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -12,9 +12,7 @@ Show Fight for the Future alerts and actions on your website.
 
 == Description ==
 
-This plugin shows alerts from [Fight for the Future](https://fightforthefuture.org) on your WordPress site.
-
-You can show a modal windows for a specific day of action, or an event (some on ongoing). A week after the event has passed, the javascript will cease to be included on your site _unless_ you have debug mode on. This is to ensure your site doesn't load a bajillion unused javascript calls. Speed matters.
+This plugin shows alerts from [Fight for the Future](https://fightforthefuture.org) on your WordPress site. You can show a modal windows for a specific day of action, or an event (some on ongoing).
 
 **I do not support issues with the modals themselves!** If the javascript is loaded on your page, regardless of how wonky it looks, then the plugin works. If the boxes look black or cause weird errors, you'll have to take it up with Fight for the Future directly.
 
@@ -25,6 +23,7 @@ If you just want to use the Cat Signal, I recommend the [Cat Signal plugin](http
 * [Cat Signal](https://www.internetdefenseleague.org) -- This will disable all others
 * [Blackout Congress](https://blackoutcongress.org)
 * [Battle for the Net](https://battleforthenet.com)
+* [Break the Internet](https://www.battleforthenet.com/breaktheinternet/)
 
 == Installation ==
 
@@ -58,8 +57,6 @@ Some, yes.
 * Blackout Congress - Enable `WP_DEBUG` on your site to show the modal to everyone
 * Battle for the Net - Add `#ALWAYS_SHOW_BFTN_WIDGET` to the end of your URL to see the modal
 
-The tests for timed events will only work for a week _unless_ you have debug mode on.
-
 = Will you add more fights? =
 
 I plan to.
@@ -75,6 +72,10 @@ I can't help people debug why the javascript isn't working properly. If you view
 Sorry, but I have to spend my time fighting with my congresscritter. He's really annoying.
 
 == Changelog ==
+
+= 1.3.0 =
+* December 2017
+* [Break the Internet](https://www.battleforthenet.com/breaktheinternet/)
 
 =1.2.1=
 * November 2017
