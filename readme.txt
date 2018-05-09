@@ -1,10 +1,10 @@
 === Fight for the Future Alerts ===
 Contributors: Ipstenu
-Donate link: https://ko-fi.com/A236CENl/
+Donate link: https://ko-fi.com/A236CEN/
 Tags: eff, fight for the future, cat signal, activism
 Requires at least: 4.8
 Tested up to: 4.9
-Stable tag: 1.3.0
+Stable tag: 1.3.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -24,6 +24,11 @@ If you just want to use the Cat Signal, I recommend the [Cat Signal plugin](http
 * [Blackout Congress](https://blackoutcongress.org)
 * [Battle for the Net](https://battleforthenet.com)
 * [Break the Internet](https://www.battleforthenet.com/breaktheinternet/)
+* [Red Alert for Net Neutrality](https://www.battleforthenet.com/redalert/)
+
+=== Privacy Policy ===
+
+By using this plugin, you load javascript remotely from [Fight for the Future](https://fightforthefuture.org). Please review [their official privacy policy](https://www.fightforthefuture.org/privacy/) for details.
 
 == Installation ==
 

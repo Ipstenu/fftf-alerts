@@ -3,7 +3,7 @@
 Plugin Name: FFTF Alerts
 Plugin URI: https://halfelf.org/plugins/fftf-alerts
 Description: Show Fight for the Future alerts on your website
-Version: 1.3.0
+Version: 1.3.1
 Author: Mika Epstein (Ipstenu)
 Author URI: https://halfelf.org
 License: GPLv3
@@ -54,13 +54,14 @@ class FFTF_Alerts {
 		add_action( 'wp_enqueue_scripts', array( $this, 'wp_enqueue_script' ) );
 
 		// Create Defaults
-		self::$version    = '1.3.0';
+		self::$version    = '1.3.1';
 		self::$default_settings = array (
 			'version'          => self::$version,
+			'catsignal'        => false,
 			'blackoutcongress' => false,
 			'battleforthenet'  => false,
-			'catsignal'        => false,
 			'breaktheinternet' => false,
+			'redalertfornn'    => false,
 		);
 		self::$settings   = get_option( 'fftf_alerts_options', self::$default_settings );
 		self::$fights     = array (
@@ -85,6 +86,11 @@ class FFTF_Alerts {
 				'name'  => __( 'Break the Internet', 'fftf-alerts' ),
 				'url'   => 'https://www.battleforthenet.com/breaktheinternet/',
 				'js'    => 'https://widget.battleforthenet.com/widget.js',
+			),
+			'redalertfornn'         => array(
+				'name'  => __( 'Red Alert for Net Neutrality', 'fftf-alerts' ),
+				'url'   => 'https://www.battleforthenet.com/redalert/',
+				'js'    => 'https://redalert.battleforthenet.com/widget.js',
 			),
 		);
 
@@ -118,7 +124,7 @@ class FFTF_Alerts {
 			$the_settings = self::$settings;
 
 			foreach ( self::$default_settings as $setting => $value ) {
-				if ( !array_key_exists( $setting , self::$settings ) ) {
+				if ( !array_key_exists( $setting, self::$settings ) ) {
 					$the_settings[$setting] = self::$default_settings[$setting];
 				}
 			}
@@ -127,6 +133,9 @@ class FFTF_Alerts {
 			ksort( $the_settings );
 
 			update_option( 'fftf_alerts_options', $the_settings );
+
+			wp_redirect( admin_url( 'tools.php?page=fftf-alerts-settings' ) );
+			exit;
 		}
 	}
 
@@ -254,7 +263,7 @@ class FFTF_Alerts {
 	 */
 	function donate_link( $links, $file ) {
 		if ($file == plugin_basename(__FILE__)) {
-		$donate_link = '<a href="https://ko-fi.com/A236CENl/">' . __( 'Donate', 'fftf-alerts' ) . '</a>';
+		$donate_link = '<a href="https://ko-fi.com/A236CEN/">' . __( 'Donate', 'fftf-alerts' ) . '</a>';
 		$links[] = $donate_link;
 		}
 		return $links;
